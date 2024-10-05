@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Cookies from 'js-cookie';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import './styles/App.css';
 
 function App() {
+  const [username, setUsername] = useState('');
+
+  useEffect(() => {
+    const user = Cookies.get('username');
+    if (user) {
+      setUsername(user);
+    }
+  }, []);
+
   return (
     <div className="App">
       <nav className="navbar">
         <ul>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#tickets">Tickets</a></li>
+          <li><a href="/">Home</a></li>
+          <li><a href="tickets">Tickets</a></li>
         </ul>
-        <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
+        {username ? (
+          <span>Welcome, {username}</span>
+        ) : (
+          <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
+        )}
       </nav>
       <header className="App-header">
         <h1>Nates Services Support</h1>
@@ -40,7 +54,7 @@ function App() {
       <footer className="footer">
         <p>Follow us on social media:</p>
         <div className="social-icons">
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+          <a href="https://facebook.com'/nmarcellus" target="_blank" rel="noopener noreferrer">
             <FaFacebook />
           </a>
           <a href="https://x.com/nateshonor" target="_blank" rel="noopener noreferrer">
