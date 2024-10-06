@@ -23,6 +23,9 @@ const TicketDetailPage = () => {
   useEffect(() => {
     const fetchTicketDetails = async () => {
       const token = Cookies.get('token');
+      console.log(`Fetching ticket details for ticketId: ${ticketId}`);
+      console.log(`Token: ${token}`);
+
       try {
         const response = await fetch(`https://api.natemarcellus.com/tickets/${ticketId}`, {
           method: 'GET',
@@ -32,8 +35,12 @@ const TicketDetailPage = () => {
           },
         });
 
+        console.log(`Response status: ${response.status}`);
+
         if (response.ok) {
           const data = await response.json();
+          console.log('Ticket details fetched successfully:', data);
+
           if (data.ticket) {
             setTicket(data.ticket);
             fetchUserRole(token);
@@ -42,17 +49,21 @@ const TicketDetailPage = () => {
           }
         } else {
           const errorData = await response.json();
+          console.error('Failed to fetch ticket details:', errorData);
           setError(`Failed to fetch ticket details: ${errorData.message}`);
           setTimeout(() => {
             window.location.href = 'https://support.natemarcellus.com';
           }, 10000);
         }
       } catch (err) {
+        console.error('Error during ticket details fetch:', err);
         setError('An error occurred while fetching ticket details.');
       }
     };
 
     const fetchUserRole = async (token) => {
+      console.log('Fetching user role with token:', token);
+
       try {
         const response = await fetch('https://api.natemarcellus.com/user/role', {
           method: 'GET',
@@ -62,14 +73,19 @@ const TicketDetailPage = () => {
           },
         });
 
+        console.log(`User role response status: ${response.status}`);
+
         if (response.ok) {
           const data = await response.json();
+          console.log('User role fetched successfully:', data);
           setUserRole(data.role);
         } else {
           const errorData = await response.json();
+          console.error('Failed to fetch user role:', errorData);
           setError(`Failed to fetch user role: ${errorData.message}`);
         }
       } catch (err) {
+        console.error('Error during user role fetch:', err);
         setError('An error occurred while fetching user role.');
       }
     };
@@ -84,6 +100,7 @@ const TicketDetailPage = () => {
     }
 
     const token = Cookies.get('token');
+    console.log('Sending message:', message);
 
     try {
       const response = await fetch(`https://api.natemarcellus.com/tickets/message`, {
@@ -100,8 +117,12 @@ const TicketDetailPage = () => {
         }),
       });
 
+      console.log(`Send message response status: ${response.status}`);
+
       if (response.ok) {
         const data = await response.json();
+        console.log('Message sent successfully:', data);
+
         setSuccess('Message sent successfully!');
         setMessage('');
         setTicket((prevTicket) => ({
@@ -116,16 +137,19 @@ const TicketDetailPage = () => {
         }));
       } else {
         const errorData = await response.json();
+        console.error('Failed to send message:', errorData);
         setError(`Failed to send message: ${errorData.message}`);
       }
     } catch (err) {
+      console.error('Error during message send:', err);
       setError('An error occurred while sending the message.');
     }
   };
 
   const handleCloseTicket = async () => {
     const token = Cookies.get('token');
-  
+    console.log(`Closing ticket with ID: ${ticketId}`);
+
     try {
       const response = await fetch(`https://api.natemarcellus.com/tickets/${ticketId}/close`, {
         method: 'POST',
@@ -134,8 +158,11 @@ const TicketDetailPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-  
+
+      console.log(`Close ticket response status: ${response.status}`);
+
       if (response.ok) {
+        console.log('Ticket closed successfully');
         setSuccess('Ticket closed successfully! You will be redirected shortly.');
         setTicket((prevTicket) => ({ ...prevTicket, status: 'Closed' }));
         setTimeout(() => {
@@ -143,12 +170,14 @@ const TicketDetailPage = () => {
         }, 5000);
       } else {
         const errorData = await response.json();
+        console.error('Failed to close ticket:', errorData);
         setError(`Failed to close ticket: ${errorData.message}`);
       }
     } catch (err) {
+      console.error('Error during ticket close:', err);
       setError('An error occurred while closing the ticket.');
     }
-  };  
+  };
 
   if (error) {
     return <Alert severity="error">{error}</Alert>;
