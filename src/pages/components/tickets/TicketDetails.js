@@ -125,15 +125,26 @@ const TicketDetailPage = () => {
         <Typography variant="body2" gutterBottom>
           Created on: {new Date(ticket.createdAt).toLocaleString()}
         </Typography>
-
+        
         <Box mt={3}>
           <Typography variant="h6">Messages:</Typography>
           {ticket.messages && ticket.messages.length > 0 ? (
             ticket.messages.map((msg) => (
               <Box key={msg.messageId} sx={{ border: '1px solid #ccc', borderRadius: 1, padding: 2, marginBottom: 2 }}>
-                <Typography variant="subtitle2">{msg.username}:</Typography>
-                <Typography variant="body2">{msg.messageContent}</Typography>
-                <Typography variant="caption" color="textSecondary">
+                <Box display="flex" alignItems="center">
+                  <Typography variant="subtitle2" component="span" fontWeight="bold">
+                    {msg.username}
+                  </Typography>
+                  <Chip
+                    label={msg.role === 'administrator' ? 'Admin' : 'Member'}
+                    color={msg.role === 'administrator' ? 'error' : 'default'}
+                    sx={{ marginLeft: 1 }}
+                  />
+                </Box>
+                <Typography variant="body2" component="span" sx={{ marginLeft: 1 }}>
+                  {msg.messageContent}
+                </Typography>
+                <Typography variant="caption" color="textSecondary" display="block">
                   {new Date(msg.sentAt).toLocaleString()}
                 </Typography>
               </Box>
@@ -142,7 +153,7 @@ const TicketDetailPage = () => {
             <Typography>No messages yet.</Typography>
           )}
         </Box>
-
+        
         <Box mt={3}>
           <TextField
             label="Type your message here..."
