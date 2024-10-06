@@ -36,7 +36,7 @@ const TicketDetailPage = () => {
           const data = await response.json();
           if (data.ticket) {
             setTicket(data.ticket);
-            fetchUserRole(token); // Fetch user role after getting ticket
+            fetchUserRole(token);
           } else {
             setError('Ticket not found!');
           }
@@ -64,7 +64,7 @@ const TicketDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setUserRole(data.role); // Set user role
+          setUserRole(data.role);
         } else {
           const errorData = await response.json();
           setError(`Failed to fetch user role: ${errorData.message}`);
