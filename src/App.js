@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
-import './styles/App.css';
-
+import './pages/styles/App.css';
+import './pages/TicketsPage.js'
 function App() {
   const [username, setUsername] = useState('');
 
