@@ -59,24 +59,23 @@ const TicketDetailPage = () => {
     const token = Cookies.get('token');
 
     try {
-      const response = await fetch(`https://api.natemarcellus.com/messages`, {
+      const response = await fetch(`https://api.natemarcellus.com/tickets/message`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-api-key': process.env.REACT_APP_API_KEY,
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ ticketId, message }),
+        body: JSON.stringify({ ticketNumber: ticket.ticketNumber, messageContent: message }),
       });
 
       if (response.ok) {
-        const newMessage = await response.json();
+        const data = await response.json();
         setSuccess('Message sent successfully!');
         setMessage('');
-        // Update ticket messages with the new message
         setTicket((prevTicket) => ({
           ...prevTicket,
-          messages: [...prevTicket.messages, newMessage],
+          messages: [...prevTicket.messages, data.ticket.messages[data.ticket.messages.length - 1]],
         }));
       } else {
         const errorData = await response.json();
@@ -126,7 +125,7 @@ const TicketDetailPage = () => {
 
         <Box mt={3}>
           <Typography variant="h6">Messages:</Typography>
-          {ticket.messages.length > 0 ? (
+          {ticket.messages && ticket.messages.length > 0 ? (
             ticket.messages.map((msg) => (
               <Box key={msg.messageId} sx={{ border: '1px solid #ccc', borderRadius: 1, padding: 2, marginBottom: 2 }}>
                 <Typography variant="subtitle2">{msg.username}:</Typography>
