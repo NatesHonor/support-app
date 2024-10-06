@@ -54,12 +54,6 @@ const TicketDetailPage = () => {
     return <Typography>Loading...</Typography>;
   }
 
-  const statusColor = {
-    Open: 'success.main', 
-    Closed: 'error.main', 
-    Pending: 'warning.main',
-  };
-
   return (
     <Container component="main" maxWidth="md">
       <Paper elevation={3} sx={{ padding: 3, borderRadius: 2 }}>
