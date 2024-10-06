@@ -14,6 +14,23 @@ body {
   text-align: center;
 }
 
+.logout-button {
+  background-color: #ff4d4d;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-left: 15px;
+}
+
+.logout-button:hover {
+  background-color: #ff1a1a;
+  transform: translateY(-2px);
+}
+
 .navbar {
   background-color: #282c34;
   padding: 10px 0;

@@ -15,11 +15,8 @@ function App() {
   }, []);
 
   const handleLogout = () => {
-    // Remove cookies from root domain *.natemarcellus.com
     Cookies.remove('username', { domain: '.natemarcellus.com' });
     Cookies.remove('token', { domain: '.natemarcellus.com' });
-    
-    // Reload the page to reflect logout
     window.location.reload();
   };
 
