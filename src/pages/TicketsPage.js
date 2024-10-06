@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { 
   Container, Typography, Button, Box, Grid, Card, CardContent, AppBar, 
-  Toolbar, IconButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Alert
+  Toolbar, IconButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Alert, Tabs, Tab
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -20,6 +20,7 @@ const TicketsPage = () => {
   const [success, setSuccess] = useState('');
   const [tickets, setTickets] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [tabValue, setTabValue] = useState(0);
   const navigate = useNavigate();
 
   const fetchTickets = async (token) => {
@@ -105,6 +106,10 @@ const TicketsPage = () => {
     navigate(`/ticket/${ticketId}`);
   };
 
+  const handleTabChange = (event, newValue) => {
+    setTabValue(newValue);
+  };
+
   if (!isLoggedIn) {
     return (
       <ThemeProvider theme={darkTheme}>
@@ -125,6 +130,10 @@ const TicketsPage = () => {
       </ThemeProvider>
     );
   }
+
+  const filteredTickets = tickets.filter((ticket) =>
+    tabValue === 0 ? ticket.status === 'Open' : ticket.status === 'Closed'
+  );
 
   return (
     <ThemeProvider theme={darkTheme}>
@@ -156,12 +165,17 @@ const TicketsPage = () => {
           </Button>
         </Box>
 
+        <Tabs value={tabValue} onChange={handleTabChange} aria-label="Ticket Status Tabs">
+          <Tab label="Open Tickets" />
+          <Tab label="Closed Tickets" />
+        </Tabs>
+
         {error && <Alert severity="error">{error}</Alert>}
         {success && <Alert severity="success">{success}</Alert>}
 
-        <Grid container spacing={4}>
-          {tickets.length > 0 ? (
-            tickets.map((ticket) => (
+        <Grid container spacing={4} mt={2}>
+          {filteredTickets.length > 0 ? (
+            filteredTickets.map((ticket) => (
               <Grid item xs={12} sm={6} md={4} key={ticket.id}>
                 <Card onClick={() => handleTicketClick(ticket.id)} style={{ cursor: 'pointer' }}>
                   <CardContent>
@@ -174,7 +188,7 @@ const TicketsPage = () => {
             ))
           ) : (
             <Typography variant="body1" align="center" sx={{ width: '100%' }}>
-              You currently have no tickets.
+              {tabValue === 0 ? 'No open tickets available.' : 'No closed tickets available.'}
             </Typography>
           )}
         </Grid>
