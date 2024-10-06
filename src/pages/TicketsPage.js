@@ -69,13 +69,13 @@ const TicketsPage = () => {
 
   const handleCreateTicket = async () => {
     if (!subject || !message) {
-      setError('Both subject and message are required.');
+      setError('Both title and description are required.');
       return;
     }
-
+  
     try {
       const token = Cookies.get('token');
-
+  
       const response = await fetch('https://api.natemarcellus.com/tickets/create', {
         method: 'POST',
         headers: {
@@ -83,21 +83,22 @@ const TicketsPage = () => {
           'x-api-key': process.env.REACT_APP_API_KEY,
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ subject, message }),
+        body: JSON.stringify({ title: subject, description: message }),
       });
-
+  
       if (response.ok) {
         setSuccess('Ticket created successfully!');
         fetchTickets(token);
         handleClose();
       } else {
         const errorData = await response.json();
-        setError(`Failed to create ticket: ${errorData.message}`);
+        setError(`Failed to create ticket: ${errorData.error || errorData.message}`);
       }
     } catch (err) {
       setError('An error occurred while creating the ticket.');
     }
   };
+  
 
   if (!isLoggedIn) {
     return (
