@@ -18,15 +18,15 @@ const TicketsPage = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [tickets, setTickets] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     const token = Cookies.get('token');
     const user = Cookies.get('username');
 
-    if (!token || !user) {
-      window.location.href = 'https://www.natemarcellus.com/login';
-    } else {
+    if (token && user) {
       setUsername(user);
+      setIsLoggedIn(true);
       fetchTickets(token);
     }
   }, []);
@@ -97,8 +97,25 @@ const TicketsPage = () => {
     }
   };
 
-  if (!username) {
-    return null;
+  if (!isLoggedIn) {
+    return (
+      <ThemeProvider theme={darkTheme}>
+        <Container component="main" maxWidth="sm" sx={{ marginTop: 8 }}>
+          <Typography variant="h5" align="center" gutterBottom>
+            You are not logged in. Please log in to access your tickets.
+          </Typography>
+          <Box display="flex" justifyContent="center" mb={2}>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={() => window.location.href = 'https://www.natemarcellus.com/login'}
+            >
+              Log In
+            </Button>
+          </Box>
+        </Container>
+      </ThemeProvider>
+    );
   }
 
   return (
