@@ -40,7 +40,8 @@ const TicketsPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-      console.log(response)
+      console.log(process.env.REACT_APP_API_KEY)
+      console.log(token)
 
       if (response.ok) {
         const data = await response.json();
