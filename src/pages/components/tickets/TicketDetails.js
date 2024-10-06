@@ -18,6 +18,7 @@ const TicketDetailPage = () => {
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
   const [success, setSuccess] = useState('');
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     const fetchTicketDetails = async () => {
@@ -35,6 +36,7 @@ const TicketDetailPage = () => {
           const data = await response.json();
           if (data.ticket) {
             setTicket(data.ticket);
+            fetchUserRole(token); // Fetch user role after getting ticket
           } else {
             setError('Ticket not found!');
           }
@@ -47,6 +49,28 @@ const TicketDetailPage = () => {
         }
       } catch (err) {
         setError('An error occurred while fetching ticket details.');
+      }
+    };
+
+    const fetchUserRole = async (token) => {
+      try {
+        const response = await fetch('https://api.natemarcellus.com/user/role', {
+          method: 'GET',
+          headers: {
+            'x-api-key': process.env.REACT_APP_API_KEY,
+            'Authorization': `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUserRole(data.role); // Set user role
+        } else {
+          const errorData = await response.json();
+          setError(`Failed to fetch user role: ${errorData.message}`);
+        }
+      } catch (err) {
+        setError('An error occurred while fetching user role.');
       }
     };
 
@@ -136,8 +160,8 @@ const TicketDetailPage = () => {
                     {msg.username}
                   </Typography>
                   <Chip
-                    label={msg.role === 'administrator' ? 'Admin' : 'Member'}
-                    color={msg.role === 'administrator' ? 'error' : 'default'}
+                    label={userRole === 'administrator' ? 'Admin' : 'Member'}
+                    color={userRole === 'administrator' ? 'error' : 'success'}
                     sx={{ marginLeft: 1 }}
                   />
                 </Box>
