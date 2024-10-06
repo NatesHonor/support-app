@@ -7,6 +7,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useNavigate } from 'react-router-dom';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
@@ -19,6 +20,7 @@ const TicketsPage = () => {
   const [success, setSuccess] = useState('');
   const [tickets, setTickets] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get('token');
@@ -40,8 +42,6 @@ const TicketsPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-      console.log(process.env.REACT_APP_API_KEY)
-      console.log(token)
 
       if (response.ok) {
         const data = await response.json();
@@ -72,10 +72,10 @@ const TicketsPage = () => {
       setError('Both title and description are required.');
       return;
     }
-  
+
     try {
       const token = Cookies.get('token');
-  
+
       const response = await fetch('https://api.natemarcellus.com/tickets/create', {
         method: 'POST',
         headers: {
@@ -85,7 +85,7 @@ const TicketsPage = () => {
         },
         body: JSON.stringify({ title: subject, description: message }),
       });
-  
+
       if (response.ok) {
         setSuccess('Ticket created successfully!');
         fetchTickets(token);
@@ -98,7 +98,10 @@ const TicketsPage = () => {
       setError('An error occurred while creating the ticket.');
     }
   };
-  
+
+  const handleTicketClick = (ticketId) => {
+    navigate(`/ticket/${ticketId}`);
+  };
 
   if (!isLoggedIn) {
     return (
@@ -158,7 +161,7 @@ const TicketsPage = () => {
           {tickets.length > 0 ? (
             tickets.map((ticket) => (
               <Grid item xs={12} sm={6} md={4} key={ticket.id}>
-                <Card>
+                <Card onClick={() => handleTicketClick(ticket.id)} style={{ cursor: 'pointer' }}>
                   <CardContent>
                     <Typography variant="h5">Ticket #{ticket.id}</Typography>
                     <Typography variant="body2">Status: {ticket.status}</Typography>
