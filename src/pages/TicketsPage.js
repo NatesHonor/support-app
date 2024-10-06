@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import Cookies from 'js-cookie';
 import { 
   Container, Typography, Button, Box, Grid, Card, CardContent, AppBar, 
@@ -23,18 +23,7 @@ const TicketsPage = () => {
   const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const token = Cookies.get('token');
-    const user = Cookies.get('username');
-    
-    if (token && user) {
-      setUsername(user);
-      setIsLoggedIn(true);
-      fetchUserRole(token);
-    }
-  }, []);
-
-  const fetchUserRole = async (token) => {
+  const fetchUserRole = useCallback(async (token) => {
     try {
       const response = await fetch('https://api.natemarcellus.com/user/role', {
         method: 'GET',
@@ -55,14 +44,14 @@ const TicketsPage = () => {
     } catch (err) {
       setError('An error occurred while fetching user role.');
     }
-  };
+  }, []);
 
   const fetchTickets = async (token, role) => {
     try {
       const endpoint = role === 'administrator' 
         ? 'https://api.natemarcellus.com/tickets/all' 
         : 'https://api.natemarcellus.com/tickets/list';
-  
+
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: {
@@ -70,7 +59,7 @@ const TicketsPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-  
+
       if (response.ok) {
         const data = await response.json();
         console.log('Fetched tickets:', data.tickets);
@@ -84,7 +73,18 @@ const TicketsPage = () => {
       console.error('Error fetching tickets:', err);
     }
   };
-  
+
+  useEffect(() => {
+    const token = Cookies.get('token');
+    const user = Cookies.get('username');
+
+    if (token && user) {
+      setUsername(user);
+      setIsLoggedIn(true);
+      fetchUserRole(token);
+    }
+  }, [fetchUserRole]);
+
   const handleOpen = () => {
     setOpen(true);
   };
