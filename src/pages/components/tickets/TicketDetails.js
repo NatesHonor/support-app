@@ -224,20 +224,26 @@ const TicketDetailPage = () => {
         </Box>
 
         <Box mt={3}>
-          <TextField
-            label="Type your message here..."
-            variant="outlined"
-            fullWidth
-            multiline
-            rows={3}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <Box mt={2}>
-            <Button variant="contained" color="primary" onClick={handleSendMessage}>
-              Send Message
-            </Button>
-          </Box>
+          {ticket.status === 'Closed' ? (
+            <Alert severity="info">This ticket is closed. You cannot add new messages.</Alert>
+          ) : (
+            <>
+              <TextField
+                label="Type your message here..."
+                variant="outlined"
+                fullWidth
+                multiline
+                rows={3}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+              <Box mt={2}>
+                <Button variant="contained" color="primary" onClick={handleSendMessage}>
+                  Send Message
+                </Button>
+              </Box>
+            </>
+          )}
           {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
         </Box>
       </Paper>
