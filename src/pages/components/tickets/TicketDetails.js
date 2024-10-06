@@ -96,7 +96,7 @@ const TicketDetailPage = () => {
         body: JSON.stringify({ 
           ticketNumber: ticket.ticketNumber, 
           messageContent: message,
-          role: userRole // Include user role in the message
+          role: userRole
         }),
       });
 
@@ -110,7 +110,7 @@ const TicketDetailPage = () => {
             ...prevTicket.messages,
             {
               ...data.ticket.messages[data.ticket.messages.length - 1],
-              role: userRole // Add the role to the newly sent message
+              role: userRole
             }
           ],
         }));
@@ -122,6 +122,33 @@ const TicketDetailPage = () => {
       setError('An error occurred while sending the message.');
     }
   };
+
+  const handleCloseTicket = async () => {
+    const token = Cookies.get('token');
+  
+    try {
+      const response = await fetch(`https://api.natemarcellus.com/tickets/${ticketId}/close`, {
+        method: 'POST',
+        headers: {
+          'x-api-key': process.env.REACT_APP_API_KEY,
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+  
+      if (response.ok) {
+        setSuccess('Ticket closed successfully! You will be redirected shortly.');
+        setTicket((prevTicket) => ({ ...prevTicket, status: 'Closed' }));
+          setTimeout(() => {
+          window.location.href = 'https://support.natemarcellus.com/tickets';
+        }, 5000);
+      } else {
+        const errorData = await response.json();
+        setError(`Failed to close ticket: ${errorData.message}`);
+      }
+    } catch (err) {
+      setError('An error occurred while closing the ticket.');
+    }
+  };  
 
   if (error) {
     return <Alert severity="error">{error}</Alert>;
@@ -159,7 +186,15 @@ const TicketDetailPage = () => {
         <Typography variant="body2" gutterBottom>
           Created on: {new Date(ticket.createdAt).toLocaleString()}
         </Typography>
-        
+
+        {userRole === 'administrator' && ticket.status === 'Open' && (
+          <Box mt={2}>
+            <Button variant="contained" color="secondary" onClick={handleCloseTicket}>
+              Close Ticket
+            </Button>
+          </Box>
+        )}
+
         <Box mt={3}>
           <Typography variant="h6">Messages:</Typography>
           {ticket.messages && ticket.messages.length > 0 ? (
@@ -187,7 +222,7 @@ const TicketDetailPage = () => {
             <Typography>No messages yet.</Typography>
           )}
         </Box>
-        
+
         <Box mt={3}>
           <TextField
             label="Type your message here..."
