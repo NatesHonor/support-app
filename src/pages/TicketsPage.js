@@ -4,7 +4,6 @@ import { Container, Typography, Button, Box, Grid, Card, CardContent } from '@mu
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
-const lightTheme = createTheme({ palette: { mode: 'light' } });
 
 const TicketsPage = () => {
   const [username, setUsername] = useState('');
