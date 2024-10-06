@@ -7,6 +7,7 @@ import {
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+require('dotenv').config();
 
 const darkTheme = createTheme({ palette: { mode: 'dark' } });
 
