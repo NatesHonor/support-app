@@ -8,12 +8,16 @@ import {
   Box,
   Paper,
   Chip,
+  TextField,
+  Button,
 } from '@mui/material';
 
 const TicketDetailPage = () => {
   const { ticketId } = useParams();
   const [ticket, setTicket] = useState(null);
   const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [success, setSuccess] = useState('');
 
   useEffect(() => {
     const fetchTicketDetails = async () => {
@@ -46,6 +50,43 @@ const TicketDetailPage = () => {
     fetchTicketDetails();
   }, [ticketId]);
 
+  const handleSendMessage = async () => {
+    if (!message) {
+      setError('Message cannot be empty.');
+      return;
+    }
+
+    const token = Cookies.get('token');
+
+    try {
+      const response = await fetch(`https://api.natemarcellus.com/messages`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-api-key': process.env.REACT_APP_API_KEY,
+          'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ ticketId, message }),
+      });
+
+      if (response.ok) {
+        const newMessage = await response.json();
+        setSuccess('Message sent successfully!');
+        setMessage('');
+        // Update ticket messages with the new message
+        setTicket((prevTicket) => ({
+          ...prevTicket,
+          messages: [...prevTicket.messages, newMessage],
+        }));
+      } else {
+        const errorData = await response.json();
+        setError(`Failed to send message: ${errorData.message}`);
+      }
+    } catch (err) {
+      setError('An error occurred while sending the message.');
+    }
+  };
+
   if (error) {
     return <Alert severity="error">{error}</Alert>;
   }
@@ -70,20 +111,13 @@ const TicketDetailPage = () => {
         <Typography variant="h6" gutterBottom>
           Subject: {ticket.title}
         </Typography>
-        
+
         <Typography variant="body1" gutterBottom>
           Description: {ticket.description}
         </Typography>
-        
-        <Typography variant="body2" gutterBottom>
-          Created by: {ticket.username}
-        </Typography>
 
         <Typography variant="body2" gutterBottom>
-          Status: 
-          <span style={{ color: ticket.status === 'Open' ? 'green' : ticket.status === 'Closed' ? 'red' : 'orange' }}>
-            {` ${ticket.status}`}
-          </span>
+          Created by: {ticket.username}
         </Typography>
 
         <Typography variant="body2" gutterBottom>
@@ -105,6 +139,24 @@ const TicketDetailPage = () => {
           ) : (
             <Typography>No messages yet.</Typography>
           )}
+        </Box>
+
+        <Box mt={3}>
+          <TextField
+            label="Type your message here..."
+            variant="outlined"
+            fullWidth
+            multiline
+            rows={3}
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+          <Box mt={2}>
+            <Button variant="contained" color="primary" onClick={handleSendMessage}>
+              Send Message
+            </Button>
+          </Box>
+          {success && <Alert severity="success" sx={{ mt: 2 }}>{success}</Alert>}
         </Box>
       </Paper>
     </Container>
