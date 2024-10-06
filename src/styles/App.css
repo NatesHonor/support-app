@@ -149,3 +149,14 @@ body {
 .social-icons a:hover {
   transform: scale(1.1);
 }
+
+.welcome-message {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #007bff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}

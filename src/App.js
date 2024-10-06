@@ -21,10 +21,10 @@ function App() {
           <li><a href="tickets">Tickets</a></li>
         </ul>
         {username ? (
-          <span>Welcome, {username}</span>
+          <span className="welcome-message">Welcome, {username}</span>
         ) : (
-          <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
-        )}
+        <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
+      )}
       </nav>
       <header className="App-header">
         <h1>Nates Services Support</h1>
