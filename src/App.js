@@ -74,7 +74,7 @@ function App() {
             <FaInstagram />
           </a>
         </div>
-        <p>© 2024 Nates Services Support. All rights reserved.</p>
+        <p>© 2024 Nates Services. All rights reserved.</p>
       </footer>
     </div>
   );
