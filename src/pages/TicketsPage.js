@@ -163,9 +163,9 @@ const TicketsPage = () => {
               <Grid item xs={12} sm={6} md={4} key={ticket.id}>
                 <Card onClick={() => handleTicketClick(ticket.id)} style={{ cursor: 'pointer' }}>
                   <CardContent>
-                    <Typography variant="h5">Ticket #{ticket.id}</Typography>
+                    <Typography variant="h5">Ticket #{ticket.ticketNumber}</Typography>
                     <Typography variant="body2">Status: {ticket.status}</Typography>
-                    <Typography variant="body2">Created on: {ticket.createdAt}</Typography>
+                    <Typography variant="body2">Created on: {ticket.createdAt} EST</Typography>
                   </CardContent>
                 </Card>
               </Grid>
