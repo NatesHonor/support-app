@@ -62,7 +62,7 @@ const TicketsPage = () => {
       const endpoint = role === 'administrator' 
         ? 'https://api.natemarcellus.com/tickets/all' 
         : 'https://api.natemarcellus.com/tickets/list';
-
+  
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: {
@@ -70,9 +70,10 @@ const TicketsPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-
+  
       if (response.ok) {
         const data = await response.json();
+        console.log('Fetched tickets:', data.tickets);
         setTickets(data.tickets);
       } else {
         const errorData = await response.json();
@@ -80,9 +81,10 @@ const TicketsPage = () => {
       }
     } catch (err) {
       setError('An error occurred while fetching tickets.');
+      console.error('Error fetching tickets:', err);
     }
   };
-
+  
   const handleOpen = () => {
     setOpen(true);
   };
