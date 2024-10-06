@@ -26,7 +26,11 @@ const TicketDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          setTicket(data.ticket);
+          if (data.ticket) {
+            setTicket(data.ticket);
+          } else {
+            setError('Ticket not found!');
+          }
         } else {
           const errorData = await response.json();
           setError(`Failed to fetch ticket details: ${errorData.message}`);
@@ -50,12 +54,12 @@ const TicketDetailPage = () => {
   return (
     <Container component="main" maxWidth="sm">
       <Typography variant="h4" gutterBottom>
-        Ticket #{ticket.id}
+        Ticket #{ticket.ticketNumber} {}
       </Typography>
       <Typography variant="h6">Subject: {ticket.title}</Typography>
       <Typography variant="body1">Description: {ticket.description}</Typography>
       <Typography variant="body2">Status: {ticket.status}</Typography>
-      <Typography variant="body2">Created on: {ticket.createdAt}</Typography>
+      <Typography variant="body2">Created on: {new Date(ticket.createdAt).toLocaleString()}</Typography> {}
     </Container>
   );
 };
