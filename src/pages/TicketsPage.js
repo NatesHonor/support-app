@@ -176,8 +176,8 @@ const TicketsPage = () => {
         <Grid container spacing={4} mt={2}>
           {filteredTickets.length > 0 ? (
             filteredTickets.map((ticket) => (
-              <Grid item xs={12} sm={6} md={4} key={ticket.id}>
-                <Card onClick={() => handleTicketClick(ticket.id)} style={{ cursor: 'pointer' }}>
+              <Grid item xs={12} sm={6} md={4} key={ticket._id}> {/* Changed ticket.id to ticket._id */}
+                <Card onClick={() => handleTicketClick(ticket._id)} style={{ cursor: 'pointer' }}> {/* Changed ticket.id to ticket._id */}
                   <CardContent>
                     <Typography variant="h5">Ticket #{ticket.ticketNumber}</Typography>
                     <Typography variant="body2">Status: {ticket.status}</Typography>
