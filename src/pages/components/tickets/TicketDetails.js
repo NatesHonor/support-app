@@ -93,7 +93,11 @@ const TicketDetailPage = () => {
           'x-api-key': process.env.REACT_APP_API_KEY,
           'Authorization': `Bearer ${token}`,
         },
-        body: JSON.stringify({ ticketNumber: ticket.ticketNumber, messageContent: message }),
+        body: JSON.stringify({ 
+          ticketNumber: ticket.ticketNumber, 
+          messageContent: message,
+          role: userRole // Include user role in the message
+        }),
       });
 
       if (response.ok) {
@@ -102,7 +106,13 @@ const TicketDetailPage = () => {
         setMessage('');
         setTicket((prevTicket) => ({
           ...prevTicket,
-          messages: [...prevTicket.messages, data.ticket.messages[data.ticket.messages.length - 1]],
+          messages: [
+            ...prevTicket.messages,
+            {
+              ...data.ticket.messages[data.ticket.messages.length - 1],
+              role: userRole // Add the role to the newly sent message
+            }
+          ],
         }));
       } else {
         const errorData = await response.json();
@@ -160,8 +170,8 @@ const TicketDetailPage = () => {
                     {msg.username}
                   </Typography>
                   <Chip
-                    label={userRole === 'administrator' ? 'Admin' : 'Member'}
-                    color={userRole === 'administrator' ? 'error' : 'success'}
+                    label={msg.role === 'administrator' ? 'Admin' : 'Member'}
+                    color={msg.role === 'administrator' ? 'error' : 'success'}
                     sx={{ marginLeft: 1 }}
                   />
                 </Box>
