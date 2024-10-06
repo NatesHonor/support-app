@@ -41,6 +41,9 @@ const TicketDetailPage = () => {
         } else {
           const errorData = await response.json();
           setError(`Failed to fetch ticket details: ${errorData.message}`);
+          setTimeout(() => {
+            window.location.href = 'https://support.natemarcellus.com';
+          }, 10000);
         }
       } catch (err) {
         setError('An error occurred while fetching ticket details.');
