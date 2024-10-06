@@ -6,174 +6,181 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f0f2f5;
+  background-color: #f0f4f8;
   color: #333;
+  line-height: 1.6;
 }
 
 .App {
   text-align: center;
-}
-
-.logout-button {
-  background-color: #ff4d4d;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  color: white;
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.3s, transform 0.3s;
-  margin-left: 15px;
-}
-
-.logout-button:hover {
-  background-color: #ff1a1a;
-  transform: translateY(-2px);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
 .navbar {
-  background-color: #282c34;
-  padding: 10px 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #20232a;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .navbar ul {
   list-style: none;
   display: flex;
-  justify-content: center;
 }
 
 .navbar li {
-  margin: 0 15px;
+  margin: 0 20px;
 }
 
 .navbar a {
   color: white;
   text-decoration: none;
-  font-size: 1.2em;
-  transition: color 0.3s;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
 }
 
 .navbar a:hover {
   color: #61dafb;
 }
 
-.login-button {
-  background-color: #61dafb;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 25px;
-  color: white;
-  text-decoration: none;
-  font-size: 1em;
-  transition: background-color 0.3s, transform 0.3s;
+.navbar-right {
+  display: flex;
+  align-items: center;
 }
 
-.login-button:hover {
-  background-color: #21a1f1;
+.login-button, .logout-button {
+  background-color: #61dafb;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 30px;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  margin-left: 20px;
+}
+
+.logout-button {
+  background-color: #ff4d4d;
+}
+
+.logout-button:hover, .login-button:hover {
   transform: translateY(-2px);
 }
 
+.logout-button:hover {
+  background-color: #ff1a1a;
+}
+
 .App-header {
-  background-color: #282c34;
-  padding: 40px 20px;
+  background-color: #20232a;
+  padding: 60px 20px;
   color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .App-header h1 {
-  font-size: 2.5em;
-  margin-bottom: 10px;
-}
-
-.App-header p {
-  font-size: 1.2em;
+  font-size: 3rem;
   margin-bottom: 20px;
 }
 
+.App-header p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+}
+
 .search-bar {
-  padding: 15px;
+  padding: 12px;
   width: 60%;
   max-width: 500px;
   border-radius: 25px;
-  border: 1px solid #ccc;
-  font-size: 1em;
+  border: 1px solid #ddd;
+  font-size: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.search-bar:focus {
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
 .content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-  margin-top: 40px;
-  padding: 0 20px;
+  margin-top: 50px;
+  padding: 20px;
 }
 
 .content-box {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 10px;
-  width: 300px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s;
+  background-color: white;
+  border-radius: 15px;
+  padding: 30px;
+  margin: 20px;
+  width: 350px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .content-box:hover {
   transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
 .content-box h2 {
-  margin-top: 0;
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: #20232a;
 }
 
 .content-box p {
-  font-size: 1em;
+  font-size: 1rem;
   color: #666;
 }
 
 .footer {
-  background-color: #282c34;
+  background-color: #20232a;
   color: white;
-  padding: 20px 0;
-  margin-top: 40px;
+  padding: 40px 20px;
+  text-align: center;
+  margin-top: 50px;
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .footer p {
   margin: 10px 0;
+  font-size: 1rem;
 }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  margin: 10px 0;
+  margin: 20px 0;
 }
 
 .social-icons a {
-  margin: 0 10px;
+  margin: 0 15px;
   color: white;
-  font-size: 1.5em;
-  transition: transform 0.3s;
+  font-size: 1.8rem;
+  transition: transform 0.3s ease;
 }
 
 .social-icons a:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .welcome-message {
   font-size: 1.5rem;
-  font-weight: bold;
-  color: #ffffff;
+  color: #fff;
   background-color: #007bff;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin-left: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 30px;
+  border-radius: 25px;
+  margin-left: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
