@@ -138,7 +138,7 @@ const TicketDetailPage = () => {
       if (response.ok) {
         setSuccess('Ticket closed successfully! You will be redirected shortly.');
         setTicket((prevTicket) => ({ ...prevTicket, status: 'Closed' }));
-          setTimeout(() => {
+        setTimeout(() => {
           window.location.href = 'https://support.natemarcellus.com/tickets';
         }, 5000);
       } else {
