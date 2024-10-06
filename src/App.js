@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 import './pages/styles/App.css';
-import './pages/TicketsPage.js'
+import './pages/TicketsPage.js';
+
 function App() {
   const [username, setUsername] = useState('');
 
@@ -13,6 +14,15 @@ function App() {
     }
   }, []);
 
+  const handleLogout = () => {
+    // Remove cookies from root domain *.natemarcellus.com
+    Cookies.remove('username', { domain: '.natemarcellus.com' });
+    Cookies.remove('token', { domain: '.natemarcellus.com' });
+    
+    // Reload the page to reflect logout
+    window.location.reload();
+  };
+
   return (
     <div className="App">
       <nav className="navbar">
@@ -21,10 +31,13 @@ function App() {
           <li><a href="tickets">Tickets</a></li>
         </ul>
         {username ? (
-          <span className="welcome-message">Welcome, {username}</span>
+          <>
+            <span className="welcome-message">Welcome, {username}</span>
+            <button className="logout-button" onClick={handleLogout}>Logout</button>
+          </>
         ) : (
-        <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
-      )}
+          <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
+        )}
       </nav>
       <header className="App-header">
         <h1>Nates Services Support</h1>
@@ -35,26 +48,26 @@ function App() {
         <div className="content">
           <div className="content-box">
             <h2>Applications</h2>
-            <p>Information about applications...</p>
+            <p>Information coming soon...</p>
           </div>
           <div className="content-box">
             <h2>Billing</h2>
-            <p>Information about billing...</p>
+            <p>Information coming soon...</p>
           </div>
           <div className="content-box">
             <h2>Technical Support</h2>
-            <p>Information about technical support...</p>
+            <p>Information coming soon...</p>
           </div>
           <div className="content-box">
             <h2>Account Management</h2>
-            <p>Information about account management...</p>
+            <p>Information coming soon...</p>
           </div>
         </div>
       </main>
       <footer className="footer">
         <p>Follow us on social media:</p>
         <div className="social-icons">
-          <a href="https://facebook.com'/nmarcellus" target="_blank" rel="noopener noreferrer">
+          <a href="https://facebook.com/nmarcellus" target="_blank" rel="noopener noreferrer">
             <FaFacebook />
           </a>
           <a href="https://x.com/nateshonor" target="_blank" rel="noopener noreferrer">
