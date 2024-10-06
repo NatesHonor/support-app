@@ -20,22 +20,50 @@ const TicketsPage = () => {
   const [success, setSuccess] = useState('');
   const [tickets, setTickets] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = Cookies.get('token');
     const user = Cookies.get('username');
-
+    
     if (token && user) {
       setUsername(user);
       setIsLoggedIn(true);
-      fetchTickets(token);
+      fetchUserRole(token);
     }
   }, []);
 
-  const fetchTickets = async (token) => {
+  const fetchUserRole = async (token) => {
     try {
-      const response = await fetch('https://api.natemarcellus.com/tickets/list', {
+      const response = await fetch('https://api.natemarcellus.com/user/role', {
+        method: 'GET',
+        headers: {
+          'x-api-key': process.env.REACT_APP_API_KEY,
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setUserRole(data.role);
+        fetchTickets(token, data.role);
+      } else {
+        const errorData = await response.json();
+        setError(`Failed to fetch user role: ${errorData.message}`);
+      }
+    } catch (err) {
+      setError('An error occurred while fetching user role.');
+    }
+  };
+
+  const fetchTickets = async (token, role) => {
+    try {
+      const endpoint = role === 'administrator' 
+        ? 'https://api.natemarcellus.com/tickets/all' 
+        : 'https://api.natemarcellus.com/tickets/list';
+
+      const response = await fetch(endpoint, {
         method: 'GET',
         headers: {
           'x-api-key': process.env.REACT_APP_API_KEY,
@@ -88,7 +116,7 @@ const TicketsPage = () => {
 
       if (response.ok) {
         setSuccess('Ticket created successfully!');
-        fetchTickets(token);
+        fetchTickets(token, userRole);
         handleClose();
       } else {
         const errorData = await response.json();
