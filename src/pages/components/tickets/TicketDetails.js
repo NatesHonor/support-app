@@ -87,10 +87,8 @@ const TicketDetailPage = () => {
       setError('Message cannot be empty.');
       return;
     }
-  
+
     const token = Cookies.get('token');
-    console.log('Sending message:', message);
-  
     try {
       const response = await fetch(`https://api.natemarcellus.com/tickets/message`, {
         method: 'POST',
@@ -104,14 +102,9 @@ const TicketDetailPage = () => {
           messageContent: message,
           role: userRole,
         }),
-      });
-  
-      console.log(`Send message response status: ${response.status}`);
-  
+      });  
       if (response.ok) {
-        const data = await response.json();
-        console.log('Message sent successfully:', data);
-  
+        const data = await response.json();  
         setSuccess('Message sent successfully!');
         setMessage('');
         setTicket((prevTicket) => ({
