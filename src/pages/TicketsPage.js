@@ -121,7 +121,7 @@ const TicketsPage = () => {
             <Button 
               variant="contained" 
               color="primary" 
-              onClick={() => window.location.href = 'https://www.natemarcellus.com/login'}
+              onClick={() => window.location.href = 'https://www.natemarcellus.com/login?redirect=support.natemarcellus.com'}
             >
               Log In
             </Button>

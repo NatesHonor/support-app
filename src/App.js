@@ -33,7 +33,7 @@ function App() {
             <button className="logout-button" onClick={handleLogout}>Logout</button>
           </>
         ) : (
-          <a href="https://www.natemarcellus.com/login" className="login-button">Login</a>
+          <a href="https://www.natemarcellus.com/login?redirect=support.natemarcellus.com" className="login-button">Login</a>
         )}
       </nav>
       <header className="App-header">

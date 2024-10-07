@@ -31,9 +31,6 @@ const TicketDetailPage = () => {
             'Authorization': `Bearer ${token}`,
           },
         });
-
-        console.log(`Response status: ${response.status}`);
-
         if (response.ok) {
           const data = await response.json();
           if (data.ticket) {
@@ -140,11 +137,7 @@ const TicketDetailPage = () => {
           'Authorization': `Bearer ${token}`,
         },
       });
-
-      console.log(`Close ticket response status: ${response.status}`);
-
       if (response.ok) {
-        console.log('Ticket closed successfully');
         setSuccess('Ticket closed successfully! You will be redirected shortly.');
         setTicket((prevTicket) => ({ ...prevTicket, status: 'Closed' }));
         setTimeout(() => {
