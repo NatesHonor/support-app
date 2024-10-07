@@ -23,9 +23,6 @@ const TicketDetailPage = () => {
   useEffect(() => {
     const fetchTicketDetails = async () => {
       const token = Cookies.get('token');
-      console.log(`Fetching ticket details for ticketId: ${ticketId}`);
-      console.log(`Token: ${token}`);
-
       try {
         const response = await fetch(`https://api.natemarcellus.com/tickets/${ticketId}`, {
           method: 'GET',
@@ -39,8 +36,6 @@ const TicketDetailPage = () => {
 
         if (response.ok) {
           const data = await response.json();
-          console.log('Ticket details fetched successfully:', data);
-
           if (data.ticket) {
             setTicket(data.ticket);
             fetchUserRole(token);
@@ -62,8 +57,6 @@ const TicketDetailPage = () => {
     };
 
     const fetchUserRole = async (token) => {
-      console.log('Fetching user role with token:', token);
-
       try {
         const response = await fetch('https://api.natemarcellus.com/user/role', {
           method: 'GET',
