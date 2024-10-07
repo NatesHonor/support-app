@@ -65,12 +65,8 @@ const TicketDetailPage = () => {
             'Authorization': `Bearer ${token}`,
           },
         });
-
-        console.log(`User role response status: ${response.status}`);
-
         if (response.ok) {
           const data = await response.json();
-          console.log('User role fetched successfully:', data);
           setUserRole(data.role);
         } else {
           const errorData = await response.json();
