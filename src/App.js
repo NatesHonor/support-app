@@ -20,6 +20,11 @@ function App() {
     window.location.reload();
   };
 
+  const openApplicationsDoc = () => {
+    window.location.href = '/docs/applications.html';
+  };
+  
+
   return (
     <div className="App">
       <nav className="navbar">
@@ -43,7 +48,7 @@ function App() {
       </header>
       <main>
         <div className="content">
-          <div className="content-box">
+          <div className="content-box" onClick={openApplicationsDoc} style={{ cursor: 'pointer' }}>
             <h2>Applications</h2>
             <p>Information coming soon...</p>
           </div>
