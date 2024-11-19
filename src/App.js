@@ -50,7 +50,7 @@ function App() {
         <div className="content">
           <div className="content-box" onClick={openApplicationsDoc} style={{ cursor: 'pointer' }}>
             <h2>Applications</h2>
-            <p>Information coming soon...</p>
+            <p>Missionchief Bot</p>
           </div>
           <div className="content-box">
             <h2>Billing</h2>
