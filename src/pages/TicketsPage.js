@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import { 
   Container, Typography, Button, Box, Grid, Card, CardContent, AppBar, 
-  Toolbar, IconButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, Alert, Tabs, Tab
+  Toolbar, IconButton, Dialog, DialogTitle, DialogContent, TextField, DialogActions, 
+  Alert, Tabs, Tab, Drawer, List, ListItem, ListItemText 
 } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -21,6 +22,7 @@ const TicketsPage = () => {
   const [tickets, setTickets] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [tabValue, setTabValue] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const navigate = useNavigate();
 
   const fetchTickets = async (token) => {
@@ -35,7 +37,6 @@ const TicketsPage = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched tickets:', data.tickets);
         setTickets(data.tickets);
       } else {
         const errorData = await response.json();
@@ -43,7 +44,6 @@ const TicketsPage = () => {
       }
     } catch (err) {
       setError('An error occurred while fetching tickets.');
-      console.error('Error fetching tickets:', err);
     }
   };
 
@@ -78,7 +78,6 @@ const TicketsPage = () => {
 
     try {
       const token = Cookies.get('token');
-
       const response = await fetch('https://api.natemarcellus.com/tickets/create', {
         method: 'POST',
         headers: {
@@ -91,7 +90,7 @@ const TicketsPage = () => {
 
       if (response.ok) {
         setSuccess('Ticket created successfully!');
-        fetchTickets(token); 
+        fetchTickets(token);
         handleClose();
       } else {
         const errorData = await response.json();
@@ -108,6 +107,10 @@ const TicketsPage = () => {
 
   const handleTabChange = (event, newValue) => {
     setTabValue(newValue);
+  };
+
+  const handleDrawerToggle = () => {
+    setDrawerOpen(!drawerOpen);
   };
 
   if (!isLoggedIn) {
@@ -139,7 +142,7 @@ const TicketsPage = () => {
     <ThemeProvider theme={darkTheme}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton edge="start" color="inherit" aria-label="menu">
+          <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerToggle}>
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" style={{ flexGrow: 1 }}>
@@ -147,6 +150,17 @@ const TicketsPage = () => {
           </Typography>
         </Toolbar>
       </AppBar>
+
+      <Drawer anchor="left" open={drawerOpen} onClose={handleDrawerToggle}>
+        <Box sx={{ width: 250 }} role="presentation" onClick={handleDrawerToggle}>
+          <List>
+            <ListItem button onClick={() => window.location.href = 'https://support.natemarcellus.com'}>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </List>
+        </Box>
+      </Drawer>
+
       <Container component="main" maxWidth="lg" sx={{ marginTop: 8 }}>
         <Typography variant="h4" component="h1" align="center" gutterBottom>
           Tickets
@@ -176,8 +190,8 @@ const TicketsPage = () => {
         <Grid container spacing={4} mt={2}>
           {filteredTickets.length > 0 ? (
             filteredTickets.map((ticket) => (
-              <Grid item xs={12} sm={6} md={4} key={ticket._id}> {/* Changed ticket.id to ticket._id */}
-                <Card onClick={() => handleTicketClick(ticket._id)} style={{ cursor: 'pointer' }}> {/* Changed ticket.id to ticket._id */}
+              <Grid item xs={12} sm={6} md={4} key={ticket._id}>
+                <Card onClick={() => handleTicketClick(ticket._id)} style={{ cursor: 'pointer' }}>
                   <CardContent>
                     <Typography variant="h5">Ticket #{ticket.ticketNumber}</Typography>
                     <Typography variant="body2">Status: {ticket.status}</Typography>
@@ -206,7 +220,6 @@ const TicketsPage = () => {
               variant="outlined"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              helperText="Display the reason for your ticket"
             />
             <TextField
               margin="dense"
@@ -219,19 +232,15 @@ const TicketsPage = () => {
               rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              helperText="Explain the reason for your ticket and how to reproduce it"
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">
-              Cancel
-            </Button>
-            <Button onClick={handleCreateTicket} color="primary">
-              Create Ticket
-            </Button>
+            <Button onClick={handleClose} color="secondary">Cancel</Button>
+            <Button onClick={handleCreateTicket} color="primary">Create Ticket</Button>
           </DialogActions>
         </Dialog>
       </Container>
+
       <Box mt={5} py={3} textAlign="center" bgcolor="background.paper">
         <Typography variant="body2" color="textSecondary">
           © 2024 Nates Services. All rights reserved.
