@@ -162,6 +162,33 @@ body {
   box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.logout-button {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.logout-button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #c0392b, #e74c3c);
+}
+
+.logout-button:focus {
+  outline: none;
+}
+
+.logout-button:active {
+  transform: scale(0.98);
+}
+
 .footer p {
   margin: 10px 0;
   font-size: 1rem;
