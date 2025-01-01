@@ -10,7 +10,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from 'react-router-dom';
 
-const darkTheme = createTheme({ palette: { mode: 'dark' } });
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    primary: { main: '#1e88e5' },
+    secondary: { main: '#ff4081' },
+  },
+  typography: {
+    fontFamily: 'Roboto, Arial, sans-serif',
+    h4: { fontWeight: 600 },
+    h6: { fontWeight: 500 },
+  },
+});
 
 const TicketsPage = () => {
   const [username, setUsername] = useState('');
@@ -140,7 +151,7 @@ const TicketsPage = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <AppBar position="static">
+      <AppBar position="static" sx={{ backgroundColor: '#212121' }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={handleDrawerToggle}>
             <MenuIcon />
@@ -174,12 +185,13 @@ const TicketsPage = () => {
             color="primary" 
             startIcon={<AddCircleOutlineIcon />} 
             onClick={handleOpen}
+            sx={{ borderRadius: 20, paddingX: 3, fontWeight: 500 }}
           >
             Create New Ticket
           </Button>
         </Box>
 
-        <Tabs value={tabValue} onChange={handleTabChange} aria-label="Ticket Status Tabs">
+        <Tabs value={tabValue} onChange={handleTabChange} aria-label="Ticket Status Tabs" sx={{ marginBottom: 3 }}>
           <Tab label="Open Tickets" />
           <Tab label="Closed Tickets" />
         </Tabs>
@@ -191,11 +203,17 @@ const TicketsPage = () => {
           {filteredTickets.length > 0 ? (
             filteredTickets.map((ticket) => (
               <Grid item xs={12} sm={6} md={4} key={ticket._id}>
-                <Card onClick={() => handleTicketClick(ticket._id)} style={{ cursor: 'pointer' }}>
+                <Card 
+                  onClick={() => handleTicketClick(ticket._id)} 
+                  style={{ cursor: 'pointer', backgroundColor: '#424242', borderRadius: '8px', transition: 'all 0.3s ease' }} 
+                  sx={{
+                    '&:hover': { transform: 'scale(1.05)', boxShadow: 4 },
+                  }}
+                >
                   <CardContent>
-                    <Typography variant="h5">Ticket #{ticket.ticketNumber}</Typography>
-                    <Typography variant="body2">Status: {ticket.status}</Typography>
-                    <Typography variant="body2">Created on: {ticket.createdAt} EST</Typography>
+                    <Typography variant="h5" sx={{ color: 'primary.main' }}>Ticket #{ticket.ticketNumber}</Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>Status: {ticket.status}</Typography>
+                    <Typography variant="body2" sx={{ color: 'text.secondary' }}>Created on: {ticket.createdAt} EST</Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -220,6 +238,7 @@ const TicketsPage = () => {
               variant="outlined"
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
+              helperText="Display the reason for your ticket"
             />
             <TextField
               margin="dense"
@@ -232,11 +251,16 @@ const TicketsPage = () => {
               rows={4}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
+              helperText="Explain the reason for your ticket and how to reproduce it"
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleClose} color="secondary">Cancel</Button>
-            <Button onClick={handleCreateTicket} color="primary">Create Ticket</Button>
+            <Button onClick={handleClose} color="secondary">
+              Cancel
+            </Button>
+            <Button onClick={handleCreateTicket} color="primary">
+              Create Ticket
+            </Button>
           </DialogActions>
         </Dialog>
       </Container>
