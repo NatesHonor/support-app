@@ -120,6 +120,63 @@ body {
   border-color: #1abc9c;
 }
 
+.suggestions-list {
+  list-style: none;
+  margin-top: 8px;
+  padding: 0;
+  width: 60%;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  position: relative;
+  z-index: 10;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #34495e;
+  user-select: none;
+}
+
+.suggestions-list li {
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.suggestions-list li:last-child {
+  border-bottom: none;
+}
+
+.suggestions-list li:hover,
+.suggestions-list li:focus {
+  background-color: #1abc9c;
+  color: white;
+  outline: none;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.suggestions-list li:active {
+  background-color: #16a085;
+}
+
+@media (max-width: 600px) {
+  .suggestions-list {
+    width: 90%;
+    font-size: 0.85rem;
+  }
+}
+
+
+
 .content {
   display: flex;
   justify-content: center;
