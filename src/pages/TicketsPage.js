@@ -267,7 +267,7 @@ const TicketsPage = () => {
 
       <Box mt={5} py={3} textAlign="center" bgcolor="background.paper">
         <Typography variant="body2" color="textSecondary">
-          © 2024 Nates Services. All rights reserved.
+          © 2025 Nates Services. All rights reserved.
         </Typography>
       </Box>
     </ThemeProvider>
