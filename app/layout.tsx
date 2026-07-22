@@ -11,13 +11,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 export const metadata: Metadata = {
-  title: "Nate Marcellus Contracting LLC | Tech Solutions for Construction & Industry",
+  title: "Nate Marcellus Contracting LLC | Engineering Contracting, Software Engineering & QA Services",
   description:
-    "Expert in application development, QA, and software solutions for construction, contracting, and industrial technology needs. Hire me for custom tech services.",
+    "Specializing in engineering contracting, software engineering, and QA services. Delivering custom software solutions and rigorous testing for industries requiring precision and reliability.",
   openGraph: {
-    title: "Nate Marcellus Contracting LLC | Tech Solutions for Construction & Industry",
+    title: "Nate Marcellus Contracting LLC | Engineering Contracting, Software Engineering & QA Services",
     description:
-      "Expert in application development, QA, and software solutions for construction, contracting, and industrial technology needs. Hire me for custom tech services.",
+      "Specializing in engineering contracting, software engineering, and QA services. Delivering custom software solutions and rigorous testing for industries requiring precision and reliability.",
     url: "https://www.nateMarcellus.com",
     siteName: "Nate Marcellus Contracting LLC",
     images: [
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
         url: "https://www.nateMarcellus.com/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Nate Marcellus Tech Solutions",
+        alt: "Nate Marcellus Engineering & QA Services",
       },
     ],
     locale: "en_US",
@@ -33,9 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nate Marcellus Contracting LLC | Tech Solutions for Construction & Industry",
+    title: "Nate Marcellus Contracting LLC | Engineering Contracting, Software Engineering & QA Services",
     description:
-      "Expert in application development, QA, and software solutions for construction, contracting, and industrial technology needs. Hire me for custom tech services.",
+      "Specializing in engineering contracting, software engineering, and QA services. Delivering custom software solutions and rigorous testing for industries requiring precision and reliability.",
     images: ["https://www.nateMarcellus.com/og-image.png"],
   },
   robots: {
@@ -53,12 +53,13 @@ export const metadata: Metadata = {
     canonical: "https://www.nateMarcellus.com",
   },
   keywords: [
-    "construction tech",
-    "software development",
+    "engineering contracting",
+    "software engineering",
     "QA services",
-    "industrial software",
-    "custom tech solutions",
-    "contracting software",
+    "custom software solutions",
+    "software testing",
+    "industrial engineering",
+    "contracting services",
   ],
   authors: [
     {
@@ -145,118 +146,84 @@ export default function RootLayout({
               <div>
                 <h3 className="text-2xl font-bold text-blue-500 mb-4">Nate Marcellus</h3>
                 <p className="text-gray-400 mb-6">
-                  Bridging construction and technology with custom software solutions, QA services,
-                  and application development for industrial and contracting needs.
+                  Delivering engineering contracting, software engineering, and QA services for
+                  industries requiring precision, reliability, and custom software solutions.
                 </p>
-                <div className="flex space-x-4 animate-fade-in">
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-125"
-                    aria-label="Facebook"
-                  >
-                    <FaFacebook className="h-6 w-6" />
+                <div className="flex space-x-4">
+                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                    <FaFacebook />
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-125"
-                    aria-label="Twitter"
-                  >
-                    <FaTwitter className="h-6 w-6" />
+                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                    <FaTwitter />
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-125"
-                    aria-label="Instagram"
-                  >
-                    <FaInstagram className="h-6 w-6" />
+                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                    <FaInstagram />
                   </a>
-                  <a
-                    href="#"
-                    className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-125"
-                    aria-label="LinkedIn"
-                  >
-                    <FaLinkedin className="h-6 w-6" />
+                  <a href="#" className="text-gray-400 hover:text-blue-400">
+                    <FaLinkedin />
                   </a>
                 </div>
               </div>
-              {/* Navigation */}
               <div>
-                <h4 className="text-lg font-semibold text-blue-400 mb-4">Navigation</h4>
-                <ul className="space-y-3">
+                <h4 className="text-lg font-semibold text-white mb-4">Services</h4>
+                <ul className="space-y-2">
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
-                      Home
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      Software Engineering
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
-                      Services
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      QA & Testing
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
-                      About Us
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      Engineering Contracting
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
-                      Projects
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
-                      Contact
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      Custom Software Solutions
                     </a>
                   </li>
                 </ul>
               </div>
-              {/* Contact */}
               <div>
-                <h4 className="text-lg font-semibold text-blue-400 mb-4">Contact Us</h4>
-                <p className="text-gray-400 mb-4">Email: support@nateMarcellus.com</p>
-                <p className="text-gray-400 mb-4">Phone: +1 (555) 123-4567</p>
-                <p className="text-gray-400">Address: 123 Tech Street, Innovation City</p>
-              </div>
-              {/* Legal */}
-              <div>
-                <h4 className="text-lg font-semibold text-blue-400 mb-4">Legal</h4>
-                <ul className="space-y-3">
+                <h4 className="text-lg font-semibold text-white mb-4">Company</h4>
+                <ul className="space-y-2">
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      About Us
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      Careers
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
+                      Blog
+                    </a>
+                  </li>
+                </ul>
+              </div>
+              <div>
+                <h4 className="text-lg font-semibold text-white mb-4">Legal</h4>
+                <ul className="space-y-2">
+                  <li>
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
                       Privacy Policy
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
                       Terms of Service
                     </a>
                   </li>
                   <li>
-                    <a
-                      href="#"
-                      className="text-gray-400 hover:text-blue-400 transition-colors transform hover:scale-105"
-                    >
+                    <a href="#" className="text-gray-400 hover:text-blue-400">
                       Sitemap
                     </a>
                   </li>
